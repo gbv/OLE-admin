@@ -13,4 +13,4 @@ or invoke
 
     java -jar Marc21ToOleBulk-1.0.1.jar
 
-for the LOAD DATA INFILE code to import the data into the database.
+for the LOAD DATA INFILE sql code that imports the data into the database.
