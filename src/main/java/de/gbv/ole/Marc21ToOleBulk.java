@@ -181,8 +181,8 @@ public class Marc21ToOleBulk implements MarcWriter {
      * Return the input without the tailing check digit.
      * 
      * Example:
-     * cut("123456789X") = "123456789"
-     * cut("987654321")  = "98765432"
+     * withoutCheckdigit("123456789X") = "123456789"
+     * withoutCheckdigit("987654321")  = "98765432"
      * 
      * @param numberWithCheckdigit      -       number including check digit
      * @return number without check digit
