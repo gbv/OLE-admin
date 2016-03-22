@@ -116,6 +116,31 @@ public class Marc21ToOleBulk implements MarcWriter {
         convertLocation.put("STA",                          "UB/BIBO");
         convertLocation.put("",                             "UB/BIBO");
     }
+    /**
+     * Type of an item
+     * <li>{@link #BUA}</li>
+     * <li>{@link #BUP}</li>
+     * <li>{@link #BUZ}</li>
+     * <li>{@link #AVA}</li>
+     * <li>{@link #AVP}</li>
+     * <li>{@link #AVZ}</li>
+     * <li>{@link #ZSP}</li>
+     * <li>{@link #MKP}</li>
+     */
+    enum ItemType { 
+        /** BUA Buch ausleihbar                 */ BUA(90),
+        /** BUP Buch präsenz                    */ BUP(91),
+        /** BUZ Buch nach Zustimmung ausleihbar */ BUZ(92),
+        /** AVA AV ausleihbar                   */ AVA(93),
+        /** AVP AV präsenz                      */ AVP(94), 
+        /** AVZ AV nach Zustimmung ausleihbar   */ AVZ(95),
+        /** ZSP Zeitschrift präsenz             */ ZSP(96),
+        /** MKP Mikroform präsenz               */ MKP(97);
+        private int value;
+        private ItemType(int value) {
+            this.value = value;
+        }
+    }
     /** True to output only PPNs with 5 before check digit */
     private boolean ppn5 = false;
     /** XML transformer handler. */
@@ -800,13 +825,13 @@ public class Marc21ToOleBulk implements MarcWriter {
         if (typeOfRecord.equals("a") &&
                 "mb".contains(bibliographicLevel)) {
             if ("ubc".contains(exemplar.ausleihindikator)) {
-                return 53;      // BUA Buch ausleihbar
+                return ItemType.BUA.value;
             }
             if ("sd".contains(exemplar.ausleihindikator)) {
-                return 55;      // BUZ Buch nach Zustimmung ausleihbar
+                return ItemType.BUZ.value;
             }
             if ("ifgaoz".contains(exemplar.ausleihindikator)) {
-                return 54;      // BUP Buch präsenz
+                return ItemType.BUP.value;
             }
         }
         
@@ -815,53 +840,53 @@ public class Marc21ToOleBulk implements MarcWriter {
                 bibliographicLevel.equals("m") &&
                 categoryOfMaterial.equals("c") &&
                 materialDesignation.equals("r")  ) {
-            return 53;      // BUA Buch ausleihbar
+            return ItemType.BUA.value;
         }
              
         // Zeitschrift
         if (typeOfRecord.equals("a") &&
                 bibliographicLevel.equals("s")) {
-            return 59;      // ZSP Zeitschrift präsenz
+            return ItemType.ZSP.value;
         }
              
         // eZeitschrift
         if (typeOfRecord.equals("m") &&
                 bibliographicLevel.equals("s")) {
-            return 53;      // BUA Buch ausleihbar
+            return ItemType.BUA.value;
         }
              
         // Aufsatz
         if (typeOfRecord.equals("a") &&
                 bibliographicLevel.equals("a")) {
-            return 59;      // ZSP Zeitschrift präsenz
+            return ItemType.ZSP.value;
         }
         
         // eAufsatz
         if (bibliographicLevel.equals("a")) {
-            return 53;      // BUA Buch ausleihbar
+            return ItemType.BUA.value;
         }
         
         // Handschrift
         if ("dft".contains(typeOfRecord)) {
-            return 54;      // BUP Buch präsenz
+            return ItemType.BUP.value;
         }
         
         // Mikroform
         if (categoryOfMaterial.equals("h")) {
-            return 60;      // MKP Mikroform präsenz
+            return ItemType.MKP.value;
         }
         
         // Datenträger, Karte, Film, Tonträger, Spiel/Objekt
         
         if ("ubc".contains(exemplar.ausleihindikator)) {
-            return 56;      // AVA AV ausleihbar
+            return ItemType.AVA.value;
         }
         if ("sd".contains(exemplar.ausleihindikator)) {
-            return 58;      // AVZ AV nach Zustimmung ausleihbar
+            return ItemType.AVZ.value;
         }
 
         // ifgaoz
-        return 57;          // AVP AV präsenz
+        return ItemType.AVP.value;
     }
     
     public final void setConverter(final CharConverter aConverter) {
