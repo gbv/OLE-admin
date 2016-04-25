@@ -727,7 +727,7 @@ public class Marc21ToOleBulk implements MarcWriter {
      * @return  String, nicht null und nicht leer.
      */
     final static String empty2space(String s) {
-        if (s == null | "".equals(s)) {
+        if (s == null || "".equals(s)) {
             return " ";
         }
         
