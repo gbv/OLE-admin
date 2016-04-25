@@ -109,7 +109,9 @@ public final class Marc21Split {
             recordsWritten++;
         }
 
-        out.close();
+        if (out != null) {
+            out.close();
+        }
         in.close();
     }
 }
