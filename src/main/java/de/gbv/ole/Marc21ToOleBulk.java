@@ -890,12 +890,12 @@ public class Marc21ToOleBulk implements MarcWriter {
     }
     
     public final void setConverter(final CharConverter aConverter) {
-        throw new RuntimeException(
+        throw new UnsupportedOperationException(
                 "setConverter(CharConverter) is not implemented");
     }
 
     public final CharConverter getConverter() {
-        throw new RuntimeException("getConverter() is not implemented");
+        throw new UnsupportedOperationException("getConverter() is not implemented");
     }
 
     public void close() {
