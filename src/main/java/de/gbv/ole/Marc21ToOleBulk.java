@@ -889,11 +889,13 @@ public class Marc21ToOleBulk implements MarcWriter {
         return ItemType.AVP.value;
     }
     
-    public final void setConverter(final CharConverter aConverter) {
+    @Override
+    public final void setConverter(final org.marc4j.converter.CharConverter aConverter) {
         throw new UnsupportedOperationException(
                 "setConverter(CharConverter) is not implemented");
     }
 
+    @Override
     public final CharConverter getConverter() {
         throw new UnsupportedOperationException("getConverter() is not implemented");
     }
