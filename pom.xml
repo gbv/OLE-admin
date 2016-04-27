@@ -4,7 +4,7 @@
 
   <groupId>de.gbv.ole</groupId>
   <artifactId>Marc21ToOleBulk</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <packaging>jar</packaging>
 
   <name>Marc21ToOleBulk</name>
